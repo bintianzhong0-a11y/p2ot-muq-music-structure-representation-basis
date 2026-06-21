@@ -350,12 +350,10 @@ The learned representation is evaluated on music structure boundary detection an
 For structure boundary detection, predicted boundary candidates are obtained from peaks of the structural change score:
 
 $$
-\hat{B}_i=
+\hat{B}_i =
 \left\{
-t
-\mid
-S_{\lambda,i}^{(t)}
-\text{ is a local peak}
+t \;\middle|\;
+S_{\lambda,i}^{(t)} \text{ is a local peak}
 \right\}
 $$
 
