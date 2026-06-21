@@ -378,7 +378,14 @@ Here, `f_probe` is a lightweight probe model such as logistic regression or MLP.
 
 The following values are preliminary research results and should be interpreted as experimental evidence rather than final benchmark claims.
 
+以下の値は予備的な研究結果であり、最終的なベンチマーク性能を主張するものではなく、実験的な根拠として解釈されるべきである。
+
 ### Music Structure Boundary Detection
+### 楽曲構造境界検出
+
+Music Structure Boundary Detection is a task that estimates points in a song where the musical structure changes, such as transitions between sections, repetitions, developments, or changes in mood.
+
+楽曲構造境界検出とは、楽曲内でセクションの切り替わり、反復、展開、雰囲気の変化などが生じる時点を推定する課題である。
 
 | Setting | Dataset | Metric | Result |
 |---|---:|---:|---:|
