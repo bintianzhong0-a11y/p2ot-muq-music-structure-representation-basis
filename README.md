@@ -113,45 +113,232 @@ p2ot-music-structure-representation/
 
 ---
 
-## Method Overview
+## Method Overview / 手法概要
 
-### 1. Audio Feature Extraction
+This project represents each song as a temporal trajectory of probabilistic structural assignments.
+本研究では、各楽曲を「時間方向に変化する確率的な構造表現」として扱う。
 
-Audio is first converted into frame-level embeddings using MuQ. These embeddings are expected to capture musical information related to timbre, harmony, rhythm, and local texture.
+### 1. Audio Embedding Extraction / 音響埋め込み抽出
 
-### 2. P²OT-based Structural Assignment
+Frame-level audio embeddings are extracted from music audio using **MuQ**.
+まず、楽曲音響から **MuQ** を用いてフレーム単位の音響埋め込み表現を抽出する。これにより、音色、和声、リズム、雰囲気などを含む高次元の音響特徴を得る。
 
-P²OT is used to assign each temporal frame to a set of latent structural prototypes. Instead of forcing each frame into a single hard cluster, the method represents each frame as a probability vector.
+For a song (i), the extracted frame-level embeddings are represented as:
 
-Let the representation at time frame \(t\) be:
+$$
+X_i = \left( x_i^{(1)}, x_i^{(2)}, \ldots, x_i^{(T_i)} \right),
+\quad
+x_i^{(t)} \in \mathbb{R}^{d}
+$$
 
-\[
-\gamma_i^{(t)} \in \Delta^{K-1}
-\]
+where (T_i) is the number of frames and (d) is the embedding dimension.
 
-where \(K\) is the number of structural prototypes and \(\Delta^{K-1}\) is the probability simplex.
+ここで、(x_i^{(t)}) は楽曲 (i) の時刻 (t) における MuQ 埋め込み表現を表す。
 
-### 3. Probability Path Representation
+---
 
-A song is represented as a trajectory:
+### 2. Probabilistic Structural Assignment / 確率的構造割当
 
-\[
-\Gamma_i = \left( \gamma_i^{(1)}, \gamma_i^{(2)}, \ldots, \gamma_i^{(T_i)} \right)
-\]
+The extracted embeddings are converted into probabilistic structural assignments using **P²OT**.
+次に、抽出された埋め込み表現を **P²OT** による最適輸送的割当により、複数の構造要素への確率的割当へ変換する。各時刻を単一ラベルに固定するのではなく、soft assignment として表すことで、音楽構造の曖昧性や連続的変化を扱う。
 
-This trajectory can be used to visualize musical development, repetition, and transition.
+The probabilistic assignment at time (t) is denoted by:
 
-### 4. Local and Global Change Scores
+$$
+\gamma_i^{(t)}
+==============
 
-The project uses probability-path changes and self-distance structures to estimate musical boundaries.
+\left(
+\gamma_{i,1}^{(t)},
+\gamma_{i,2}^{(t)},
+\ldots,
+\gamma_{i,K}^{(t)}
+\right)
+\in \Delta^{K-1}
+$$
 
-Example notation:
+$$
+\sum_{k=1}^{K} \gamma_{i,k}^{(t)} = 1,
+\quad
+\gamma_{i,k}^{(t)} \geq 0
+$$
 
-\[
-\delta_i^{(t)}, \quad \nu_i^{(t)}, \quad \nu_{\mathcal A,i}^{(t)}, \quad S_{\lambda,i}^{(t)}
-\]
+where (K) is the number of structural prototypes and (\Delta^{K-1}) is the probability simplex.
 
-where \(S_{\lambda,i}^{(t)}\) denotes a mixed structural change score.
+ここで、(\gamma_{i,k}^{(t)}) は、楽曲 (i) の時刻 (t) が構造プロトタイプ (k) にどの程度対応するかを表す確率である。
+
+A simplified transport-based assignment can be written as:
+
+$$
+\Gamma_i
+========
+
+\arg\min_{\Gamma \geq 0}
+\left\langle C_i, \Gamma \right\rangle
++
+\varepsilon
+\sum_{t,k}
+\Gamma_{t,k}
+\left(
+\log \Gamma_{t,k} - 1
+\right)
++
+\lambda R(\Gamma)
+$$
+
+subject to row-wise normalization:
+
+$$
+\sum_{k=1}^{K} \Gamma_{t,k} = 1
+$$
+
+ここで、(C_i) は埋め込みと構造プロトタイプ間のコスト行列、(\varepsilon) は割当の滑らかさを制御するエントロピー正則化係数、(R(\Gamma)) は事前情報や時間方向の安定性を反映する正則化項である。
+
+---
+
+### 3. Temporal Probability Path / 時間的確率経路
+
+Each song is represented as a temporal probability path.
+各楽曲は、時刻ごとの確率ベクトルの系列として表現される。この確率経路により、楽曲内で構造的な状態がどのように変化しているかを数値的・視覚的に追跡できる。
+
+The temporal probability path of song (i) is defined as:
+
+$$
+\Gamma_i
+========
+
+\left[
+\gamma_i^{(1)},
+\gamma_i^{(2)},
+\ldots,
+\gamma_i^{(T_i)}
+\right]^{\top}
+\in
+\mathbb{R}^{T_i \times K}
+$$
+
+This path describes how the structural state of a song changes over time.
+
+この (\Gamma_i) により、楽曲全体を「確率ベクトルが時間方向に変化する軌跡」として扱うことができる。
+
+---
+
+### 4. Structural Change Scoring / 構造変化スコア計算
+
+Local and global structural change scores are computed from the probability path and self-distance structure.
+確率経路の時間変化や自己距離構造を用いて、局所的な変化点や大域的な構造遷移を検出するためのスコアを計算する。これにより、反復、展開、境界、雰囲気の変化などを定量的に扱う。
+
+A local change score can be computed by comparing adjacent probability vectors:
+
+$$
+\delta_i^{(t)}
+==============
+
+D
+\left(
+\gamma_i^{(t)},
+\gamma_i^{(t-1)}
+\right)
+$$
+
+where (D(\cdot,\cdot)) is a distance function such as Jensen-Shannon distance or cosine distance.
+
+より広い時間幅での変化を見るために、前後の時間窓を比較する周辺変化スコアを定義する。
+
+$$
+\nu_i^{(t)}
+===========
+
+D
+\left(
+\frac{1}{w}
+\sum_{r=t-w}^{t-1}
+\gamma_i^{(r)},
+\frac{1}{w}
+\sum_{r=t}^{t+w-1}
+\gamma_i^{(r)}
+\right)
+$$
+
+where (w) is the window size.
+
+また、楽曲内の自己距離構造を用いることで、反復や大域的な構造変化を捉える。
+
+$$
+\mathcal{A}_i(t,s)
+==================
+
+D
+\left(
+\gamma_i^{(t)},
+\gamma_i^{(s)}
+\right)
+$$
+
+The self-distance-based change score is defined as:
+
+$$
+\nu_{\mathcal{A},i}^{(t)}
+=========================
+
+D
+\left(
+\mathcal{A}_i(t-w:t-1, :),
+\mathcal{A}_i(t:t+w-1, :)
+\right)
+$$
+
+Finally, the mixed structural change score is computed as:
+
+$$
+S_{\lambda,i}^{(t)}
+===================
+
+(1-\lambda)\nu_i^{(t)}
++
+\lambda \nu_{\mathcal{A},i}^{(t)}
+$$
+
+where (\lambda \in [0,1]) controls the balance between local probability-path change and global self-distance-structure change.
+
+この (S_{\lambda,i}^{(t)}) を用いることで、局所的な変化と大域的な構造変化の両方を考慮した境界候補を得る。
+
+---
+
+### 5. Evaluation / 評価
+
+The learned representation is evaluated on music structure boundary detection and harmonic probing tasks.
+得られた表現は、楽曲構造境界検出および和声的プロービング課題によって評価する。これにより、提案表現が大域的な楽曲構造だけでなく、局所的な和声傾向の理解にも有効であるかを検証する。
+
+For structure boundary detection, predicted boundary candidates are obtained from peaks of the structural change score:
+
+$$
+\hat{B}_i
+=========
+
+\left{
+t
+\mid
+S_{\lambda,i}^{(t)}
+\text{ is a local peak}
+\right}
+$$
+
+The predicted boundaries (\hat{B}_i) are compared with annotated boundaries (B_i) using tolerance-based precision, recall, and F-measure.
+
+For harmonic probing, the probability path (\Gamma_i) is used as an input representation for predicting harmonic labels such as chord family, root, or chord-change-related categories.
+
+$$
+\hat{y}_i^{(t)}
+===============
+
+f_{\mathrm{probe}}
+\left(
+\gamma_i^{(t)}
+\right)
+$$
+
+ここで、(f_{\mathrm{probe}}) は線形分類器や MLP などの軽量なプローブモデルであり、(\Gamma_i) が和声的情報をどの程度保持しているかを検証するために用いる。
 
 ---
 
