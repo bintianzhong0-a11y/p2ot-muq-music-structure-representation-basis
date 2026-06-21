@@ -110,6 +110,98 @@ p2ot-music-structure-representation/
 └── references/
     └── README.md
 ```
+---
+
+## Visual Examples from Preliminary Experiments
+
+This section shows selected visualization results obtained from the preliminary P²OT experiments.
+These figures are provided as qualitative examples to illustrate the behavior of the proposed representation.
+
+本節では、P²OT を用いた予備実験から得られた可視化結果の一部を示す。
+これらの図は、提案表現の振る舞いを説明するための定性的な例として掲載している。
+
+### Probability Path / 確率経路
+
+<p align="center">
+  <img src="figures/p2ot1.png" width="700">
+</p>
+
+The probability path visualizes how each time segment of a song is softly assigned to multiple structural prototypes.
+
+確率経路は、楽曲の各時刻が複数の構造プロトタイプにどの程度対応しているかを可視化したものである。
+
+---
+
+### Self-Distance Matrix / 自己距離行列
+
+<p align="center">
+  <img src="figures/p2ot3.png" width="700">
+</p>
+
+The self-distance matrix visualizes structural similarities and differences between time segments within the same song.
+
+自己距離行列は、同一楽曲内の各時刻どうしの構造的な近さや違いを可視化したものである。
+
+---
+
+### Entropy and Assignment Uncertainty / エントロピーと割当の不確実性
+
+<p align="center">
+  <img src="figures/p2ot2.png" width="700">
+</p>
+
+The entropy curve shows whether the structural assignment at each time segment is concentrated or ambiguous.
+
+エントロピー曲線は、各時刻における構造割当が明確であるか、または曖昧であるかを示す。
+
+---
+
+### Local Change Score / 局所変化スコア
+
+<p align="center">
+  <img src="figures/p2ot10.png" width="700">
+</p>
+
+The local change score highlights candidate points where the musical structure changes over time.
+
+局所変化スコアは、楽曲構造が時間的に変化する候補点を強調するための指標である。
+
+---
+
+### Soft Assignment and P²OT Comparison / ソフト割当と P²OT の比較
+
+<p align="center">
+  <img src="figures/p2ot12.png" width="700">
+</p>
+
+This figure illustrates how P²OT changes the probability path compared with a simple soft-assignment baseline.
+
+この図は、通常のソフト割当に対して、P²OT が確率経路をどのように変化させるかを示している。
+
+---
+
+### Boundary Detection Evaluation / 構造境界検出評価
+
+<p align="center">
+  <img src="figures/p2ot84.png" width="700">
+</p>
+
+The precision-recall plot evaluates how well predicted boundary candidates correspond to annotated structural boundaries.
+
+precision-recall 図は、予測された境界候補がアノテーションされた楽曲構造境界とどの程度対応しているかを評価する。
+
+---
+
+### Parameter Search / パラメータ探索
+
+<p align="center">
+  <img src="figures/p2ot90.png" width="700">
+</p>
+
+The parameter-search plot visualizes how different scoring settings affect the balance between precision and recall.
+
+パラメータ探索図は、異なるスコア設定が precision と recall のバランスに与える影響を可視化したものである。
+
 
 ---
 
