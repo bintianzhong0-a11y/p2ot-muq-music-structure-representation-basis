@@ -264,7 +264,7 @@ A local change score is computed by comparing adjacent probability vectors:
 
 $$
 \delta_i^{(t)}=
-D
+d_{\sqrt{\mathrm{JS}}}
 \left(
 \gamma_i^{(t)},
 \gamma_i^{(t-1)}
@@ -278,15 +278,25 @@ Here, `D` is a distance function such as Jensen-Shannon distance or cosine dista
 To capture broader temporal changes, a window-based neighborhood change score is defined as:
 
 $$
-\nu_i^{(t)}=
-D
-\left(
+\bar{\gamma}_{i,-}^{(t)}=
 \frac{1}{w}
 \sum_{r=t-w}^{t-1}
-\gamma_i^{(r)},
+\gamma_i^{(r)}
+$$
+
+$$
+\bar{\gamma}_{i,+}^{(t)}=
 \frac{1}{w}
 \sum_{r=t}^{t+w-1}
 \gamma_i^{(r)}
+$$
+
+$$
+\nu_i^{(t)}=
+d_{\sqrt{\mathrm{JS}}}
+\left(
+\bar{\gamma}_{i,-}^{(t)},
+\bar{\gamma}_{i,+}^{(t)}
 \right)
 $$
 
@@ -298,7 +308,7 @@ The self-distance structure of the probability path is defined as:
 
 $$
 \mathcal{A}_i(t,s)=
-D
+d_{\sqrt{\mathrm{JS}}}
 \left(
 \gamma_i^{(t)},
 \gamma_i^{(s)}
@@ -309,11 +319,11 @@ This matrix captures repetition and global structural relationships inside a son
 
 この自己距離行列により、楽曲内の反復や大域的な構造関係を捉える。
 
-A self-distance-based change score is defined as:
+A self-distance-based change score is computed by comparing the self-distance profiles before and after time `t`.
 
 $$
 \nu_{\mathcal{A},i}^{(t)}=
-D
+d_{\mathrm{profile}}
 \left(
 \mathcal{A}_i(t-w:t-1, :),
 \mathcal{A}_i(t:t+w-1, :)
