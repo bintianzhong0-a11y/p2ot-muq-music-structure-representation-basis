@@ -184,24 +184,7 @@ Here, `K` is the number of structural prototypes, and `Delta^(K-1)` denotes the 
 A simplified P²OT-based assignment objective can be written as:
 
 $$
-\Gamma_i=
-\arg\min_{\Gamma \geq 0}
-\left[\left\langle
-C_i,\Gamma
-\right\rangle
-+
-\varepsilon
-\sum_{t,k}
-\Gamma_{t,k}
-\left(
-\log \Gamma_{t,k}
-
--
-1
-\right)
-+
-\lambda R(\Gamma)
-\right]
+\Gamma_i=\arg\min_{\Gamma \geq 0}\left[\left\langleC_i,\Gamma\right\rangle+\varepsilon\sum_{t,k}\Gamma_{t,k}\left(\log \Gamma_{t,k}-1\right)+\lambda R(\Gamma)\right]
 $$
 
 subject to:
