@@ -415,15 +415,29 @@ This repository is intended for:
 - creative-support research,
 - probabilistic representation analysis of music audio.
 
+本リポジトリは、以下の目的で使用されることを想定している。
+
+-大学院研究計画の発表
+-音楽情報検索・音楽情報処理に関する予備的実験
+-楽曲構造の可視化
+-創作支援に関する研究
+-音楽音響に対する確率的表現分析
+
 ---
 
 ## What Is Not Included
 
 This repository does **not** include copyrighted audio files or raw commercial music data.
 
+本リポジトリには、著作権で保護された音声ファイルや商用楽曲の生データは含まれていない。
+
 Datasets such as Harmonix and POP909 should be obtained from their original sources according to their respective licenses and terms of use.
 
+Harmonix や POP909 などのデータセットは、それぞれのライセンスおよび利用規約に従い、元の配布元から取得する必要がある。
+
 Large intermediate feature files are also excluded from the repository. Users should regenerate features locally or on Google Colab.
+
+大容量の中間特徴量ファイルも、本リポジトリには含まれていない。利用者は、ローカル環境または Google Colab 上で特徴量を再生成する必要がある。
 
 ---
 
