@@ -131,6 +131,17 @@ The probability path visualizes how each time segment of a song is softly assign
 確率経路は、楽曲の各時刻が複数の構造プロトタイプにどの程度対応しているかを可視化したものである。
 
 ---
+### 3D Feature Probability Trajectory / 特徴確率経路の3D可視化
+
+<p align="center">
+  <img src="figures/p2ot29.png" width="700">
+</p>
+
+The 3D feature probability trajectory visualizes how the learned probability representation moves over time in a reduced-dimensional space.
+
+特徴確率経路の3D可視化は、学習された確率表現が時間とともに低次元空間上でどのように推移するかを示す。
+
+---
 
 ### Self-Distance Matrix / 自己距離行列
 
