@@ -155,8 +155,7 @@ The probabilistic assignment at each time frame is denoted as:
 
 $$
 \gamma_i^{(t)}
-=
-\left(
+=\left(
 \gamma_{i,1}^{(t)},
 \gamma_{i,2}^{(t)},
 \ldots,
@@ -171,8 +170,7 @@ $$
 $$
 \sum_{k=1}^{K}
 \gamma_{i,k}^{(t)}
-=
-1
+=1
 $$
 
 $$
@@ -187,13 +185,9 @@ Here, `K` is the number of structural prototypes, and `Delta^(K-1)` denotes the 
 A simplified P²OT-based assignment objective can be written as:
 
 $$
-\Gamma_i
-=
-\arg\min_{\Gamma \geq 0}
-\left[
-\left\langle
-C_i,
-\Gamma
+\Gamma_i=\arg\min_{\Gamma \geq 0}
+\left[\left\langle
+C_i,\Gamma
 \right\rangle
 +
 \varepsilon
@@ -201,6 +195,7 @@ C_i,
 \Gamma_{t,k}
 \left(
 \log \Gamma_{t,k}
+
 -
 1
 \right)
@@ -214,8 +209,7 @@ subject to:
 $$
 \sum_{k=1}^{K}
 \Gamma_{t,k}
-=
-1
+=1
 $$
 
 Here, `C_i` is the cost matrix between embeddings and structural prototypes, `epsilon` controls the smoothness of assignment, and `R(Gamma)` represents prior or temporal regularization.  
@@ -231,8 +225,7 @@ Each song is represented as a temporal probability path.
 The temporal probability path of song `i` is defined as:
 
 $$
-\Gamma_i
-=
+\Gamma_i=
 \left[
 \gamma_i^{(1)},
 \gamma_i^{(2)},
@@ -260,8 +253,7 @@ Local and global structural change scores are computed from the probability path
 A local change score is computed by comparing adjacent probability vectors:
 
 $$
-\delta_i^{(t)}
-=
+\delta_i^{(t)}=
 D
 \left(
 \gamma_i^{(t)},
@@ -275,8 +267,7 @@ Here, `D` is a distance function such as Jensen-Shannon distance or cosine dista
 To capture broader temporal changes, a window-based neighborhood change score is defined as:
 
 $$
-\nu_i^{(t)}
-=
+\nu_i^{(t)}=
 D
 \left(
 \frac{1}{w}
@@ -294,8 +285,7 @@ Here, `w` is the window size.
 The self-distance structure of the probability path is defined as:
 
 $$
-\mathcal{A}_i(t,s)
-=
+\mathcal{A}_i(t,s)=
 D
 \left(
 \gamma_i^{(t)},
@@ -309,8 +299,7 @@ This matrix captures repetition and global structural relationships inside a son
 A self-distance-based change score is defined as:
 
 $$
-\nu_{\mathcal{A},i}^{(t)}
-=
+\nu_{\mathcal{A},i}^{(t)}=
 D
 \left(
 \mathcal{A}_i(t-w:t-1, :),
@@ -321,8 +310,7 @@ $$
 Finally, the mixed structural change score is computed as:
 
 $$
-S_{\lambda,i}^{(t)}
-=
+S_{\lambda,i}^{(t)}=
 (1-\lambda)
 \nu_i^{(t)}
 +
@@ -343,8 +331,7 @@ The learned representation is evaluated on music structure boundary detection an
 For structure boundary detection, predicted boundary candidates are obtained from peaks of the structural change score:
 
 $$
-\hat{B}_i
-=
+\hat{B}_i=
 \left\{
 t
 \mid
@@ -359,8 +346,7 @@ The predicted boundaries are compared with annotated boundaries using tolerance-
 For harmonic probing, the probability path is used as an input representation for predicting harmonic labels:
 
 $$
-\hat{y}_i^{(t)}
-=
+\hat{y}_i^{(t)}=
 f_{\mathrm{probe}}
 \left(
 \gamma_i^{(t)}
