@@ -181,25 +181,16 @@ Here, `K` is the number of structural prototypes, and `Delta^(K-1)` denotes the 
 
 ここで、`gamma_i,k^(t)` は、楽曲 `i` の時刻 `t` が構造プロトタイプ `k` にどの程度対応するかを表す確率である。
 
-
-A simplified P²OT-based assignment objective can be written as:
-
 $$
 \Gamma_i
-=
-\operatorname*{arg\,min}_{\Gamma \geq 0}
+=\operatorname*{arg\,min}_{\Gamma \geq 0}
 \left[
-\left\langle
-C_i,
-\Gamma
-\right\rangle
-+
-\varepsilon
+\langle C_i,\Gamma\rangle
++\varepsilon
 \sum_{t,k}
 \Gamma_{t,k}
 \left(
-\log \Gamma_{t,k}
--
+\log \Gamma_{t,k}-
 1
 \right)
 +
@@ -211,8 +202,7 @@ subject to:
 
 $$
 \sum_{k=1}^{K}
-\Gamma_{t,k}
-=
+\Gamma_{t,k}=
 1
 $$
 
