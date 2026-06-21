@@ -12,7 +12,7 @@ This repository is prepared as a reproducible research artifact for a graduate-s
 
 ---
 
-## Research Motivation
+## Research Motivation / 研究動機
 
 Music contains temporal structures such as repeated sections, development, atmosphere changes, and harmonic transitions. These structures are important for music analysis, creative support, recommendation, and music understanding, but they are often difficult to handle without expert-level music-theory knowledge.
 
@@ -20,7 +20,16 @@ This project explores a representation basis that converts audio-derived feature
 
 ---
 
-## Core Idea
+## 日本語概要
+
+音楽には、反復、展開、雰囲気の変化、和声遷移など、時間とともに変化する多層的な構造が含まれている。しかし、これらの構造を分析するには、従来は音楽理論や楽曲形式に関する専門知識が必要となる場合が多く、制作者や鑑賞者が直感的に活用できる形で扱うことは容易ではない。
+
+本研究の動機は、深層学習によって得られる音響特徴量と、確率的・幾何的な割当手法を組み合わせることで、音楽の時間的構造を数値的・視覚的に扱える表現基盤を構築することである。これにより、専門的な音楽理論に依存しすぎず、楽曲分析、創作支援、推薦、教育などへ拡張可能な音楽理解の基盤を目指す。
+
+
+---
+
+## Core Idea / 基本アイデア
 
 The proposed pipeline is:
 
@@ -31,6 +40,23 @@ The proposed pipeline is:
 5. Evaluate the representation on structure boundary detection and harmonic probing tasks.
 
 Conceptually, this repository treats music structure as a trajectory in a probabilistic representation space.
+
+---
+
+## 日本語概要
+
+本研究の処理の流れは、以下の 5 段階で構成される。
+
+1. **MuQ** を用いて、楽曲音響からフレーム単位の音響埋め込み表現を抽出する。
+
+2. 抽出した埋め込み表現を、**P²OT** による最適輸送的割当を用いて、確率的な構造表現へ変換する。
+
+3. 各楽曲を、時間方向に変化する確率ベクトルの系列、すなわち **temporal probability path** として表現する。
+
+4. 確率経路の時間変化や自己距離構造を用いて、局所的および大域的な楽曲構造変化スコアを計算する。
+
+5. 得られた表現を、楽曲構造境界検出および和声的プロービング課題によって評価する。
+
 
 ---
 
