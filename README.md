@@ -351,10 +351,7 @@ For structure boundary detection, predicted boundary candidates are obtained fro
 
 $$
 \hat{B}_i =
-\left\{
-t \;\middle|\;
-S_{\lambda,i}^{(t)} \text{ is a local peak}
-\right\}
+\{ t \mid S_{\lambda,i}^{(t)} \text{ is a local peak} \}
 $$
 
 The predicted boundaries are compared with annotated boundaries using tolerance-based precision, recall, and F-measure.
