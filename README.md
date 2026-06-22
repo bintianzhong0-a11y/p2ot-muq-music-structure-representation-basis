@@ -289,12 +289,9 @@ A simplified P²OT-based assignment objective can be written as:
 $$
 \Gamma_i =
 \arg\min_{\Gamma \geq 0}
-\left{
-\langle C_i, \Gamma \rangle
-+ \varepsilon \sum_{t,k} \Gamma_{t,k}
-\left(\log \Gamma_{t,k} - 1\right)
-+ \lambda R(\Gamma)
-\right}
+\left[
+\langle C_i, \Gamma \rangle + \varepsilon \sum_{t,k} \Gamma_{t,k} \left(\log \Gamma_{t,k} - 1\right) + \lambda R(\Gamma)
+\right]
 $$
 
 subject to
