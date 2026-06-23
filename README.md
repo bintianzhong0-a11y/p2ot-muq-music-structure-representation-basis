@@ -301,18 +301,6 @@ $$
 \quad (\forall t)
 $$
 
-$$
-\sum_{k=1}^{K}
-\Gamma_{t,k}=
-1
-$$
-
-$$
-\sum_{k=1}^{K}
-\Gamma_{t,k}
-=1
-$$
-
 Here, `C_i` is the cost matrix between embeddings and structural prototypes, `epsilon` controls the smoothness of assignment, and `R(Gamma)` represents prior or temporal regularization. 
 
 ここで、`C_i` は埋め込みと構造プロトタイプ間のコスト行列、`epsilon` は割当の滑らかさを制御するエントロピー正則化係数、`R(Gamma)` は事前情報や時間方向の安定性を反映する正則化項である。
